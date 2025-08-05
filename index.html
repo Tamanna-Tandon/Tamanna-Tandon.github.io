@@ -20,6 +20,28 @@
                 'event_label': projectName
             });
         }
+
+        // Image modal functions
+        function openImageModal(src) {
+            document.getElementById('imageModal').style.display = 'block';
+            document.getElementById('modalImage').src = src;
+            gtag('event', 'click', {
+                'event_category': 'Portfolio',
+                'event_label': 'Screenshot_View'
+            });
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Close modal on click outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                closeImageModal();
+            }
+        }
     </script>
     
     <style>
@@ -197,6 +219,114 @@
             font-weight: 500;
         }
 
+        .tag.featured {
+            background: #27ae60;
+        }
+
+        .project-gallery {
+            position: relative;
+            margin: 15px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .project-gallery:hover {
+            transform: scale(1.02);
+        }
+
+        .project-screenshot {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #e1e8ed;
+            transition: all 0.3s ease;
+        }
+
+        .project-screenshot:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            text-align: center;
+            padding: 20px 10px 10px;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-gallery:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .project-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .highlight-item {
+            background: #f0f4ff;
+            color: #667eea;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #667eea;
+        }
+
         .project-links {
             margin-top: 20px;
             display: flex;
@@ -280,6 +410,25 @@
 
         .achievement-item strong {
             color: #27ae60;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .status-live {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-demo {
+            background: #fff3cd;
+            color: #721c24;
         }
 
         footer {
@@ -455,56 +604,90 @@
         </section>
 
         <section class="section fade-in">
-            <h2>Sample Data Projects</h2>
+            <h2>Data Projects Portfolio</h2>
             <p style="margin-bottom: 20px; color: #666;">
-                <em>These represent the types of projects I can deliver based on my experience and growing technical skills:</em>
+                <em>Showcasing real projects and capabilities based on my experience and technical skills:</em>
             </p>
             
             <div class="projects-grid">
                 <div class="project-card">
-                    <h3>Automated Financial Reporting Dashboard</h3>
-                    <p>Building comprehensive reporting solutions that automatically process transaction data, identify trends, and generate insights for stakeholder decision-making. Based on my experience improving operational efficiency by 50%.</p>
+                    <span class="project-status status-live">🔴 LIVE PROJECT</span>
+                    <h3>Power BI Weather Analytics Dashboard</h3>
+                    
+                    <!-- Project Screenshots -->
+                    <div class="project-gallery">
+                        <img src="https://raw.githubusercontent.com/Tamanna-Tandon/Tamanna-Tandon.github.io/refs/heads/main/images/weather-dashboard.png" 
+                             alt="Power BI Weather Dashboard" 
+                             class="project-screenshot"
+                             onclick="openImageModal(this.src)">
+                        <div class="gallery-overlay">
+                            <span>📸 Click to view full dashboard</span>
+                        </div>
+                    </div>
+                    
+                    <p>Interactive Power BI dashboard analyzing real-time weather data using APIs. Features include temperature trends, precipitation patterns, and forecast analytics with automated data refresh. Demonstrates API integration, data transformation, and business intelligence visualization skills.</p>
+                    
+                    <div class="project-highlights">
+                        <div class="highlight-item">🌡️ Real-time temperature tracking</div>
+                        <div class="highlight-item">📊 Interactive charts & KPIs</div>
+                        <div class="highlight-item">🔄 Automated data refresh</div>
+                    </div>
+                    
+                    <div class="project-tags">
+                        <span class="tag featured">Power BI</span>
+                        <span class="tag">Weather API</span>
+                        <span class="tag">Data Visualization</span>
+                        <span class="tag">Real-time Data</span>
+                        <span class="tag">Dashboard Design</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="btn btn-primary" onclick="trackClick('weather_dashboard')">View Dashboard</a>
+                        <a href="#" class="btn btn-secondary" onclick="trackClick('weather_dashboard_github')">GitHub Repo</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <span class="project-status status-demo">📊 DEMO PROJECT</span>
+                    <h3>Automated Financial Reporting System</h3>
+                    <p>Excel VBA-powered automated reporting solution that processes transaction data, identifies chargeback patterns, and generates executive dashboards. Built based on my operational experience - reduced manual reporting time by 75%.</p>
                     <div class="project-tags">
                         <span class="tag">Excel VBA</span>
                         <span class="tag">Power Query</span>
                         <span class="tag">Automation</span>
                         <span class="tag">Financial Data</span>
+                        <span class="tag">Process Optimization</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="btn btn-primary" onclick="trackClick('financial_dashboard')">View Details</a>
+                        <a href="#" class="btn btn-primary" onclick="trackClick('financial_dashboard')">View Demo</a>
                         <a href="#" class="btn btn-secondary" onclick="trackClick('financial_dashboard_github')">GitHub</a>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <h3>SQL Data Analysis Portfolio</h3>
-                    <p>Demonstrating database querying skills through analysis of business scenarios similar to chargeback prevention and operational optimization. Showcasing ability to extract insights from complex datasets.</p>
+                    <span class="project-status status-demo">🗄️ SQL PROJECT</span>
+                    <h3>Banking Data Analysis with SQL</h3>
+                    <p>Comprehensive SQL analysis of banking transactions, chargeback patterns, and operational metrics. Includes complex queries, stored procedures, and data insights that mirror real banking sector challenges I've worked with.</p>
                     <div class="project-tags">
                         <span class="tag">SQL</span>
                         <span class="tag">Database Analysis</span>
-                        <span class="tag">Business Intelligence</span>
+                        <span class="tag">Banking Domain</span>
                         <span class="tag">Data Insights</span>
+                        <span class="tag">Complex Queries</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="btn btn-primary" onclick="trackClick('sql_analysis')">View Project</a>
+                        <a href="#" class="btn btn-primary" onclick="trackClick('sql_analysis')">View Analysis</a>
                         <a href="#" class="btn btn-secondary" onclick="trackClick('sql_analysis_github')">GitHub</a>
                     </div>
                 </div>
+            </div>
 
-                <div class="project-card">
-                    <h3>Power BI Business Intelligence Dashboard</h3>
-                    <p>Creating interactive visualizations for operational metrics and KPI tracking. Transforming raw business data into actionable insights that drive strategic decisions, leveraging my domain expertise in financial operations.</p>
-                    <div class="project-tags">
-                        <span class="tag">Power BI</span>
-                        <span class="tag">Data Visualization</span>
-                        <span class="tag">KPI Tracking</span>
-                        <span class="tag">Business Analytics</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="btn btn-primary" onclick="trackClick('powerbi_dashboard')">Live Dashboard</a>
-                        <a href="#" class="btn btn-secondary" onclick="trackClick('powerbi_dashboard_docs')">Documentation</a>
-                    </div>
-                </div>
+            <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #667eea;">
+                <h4 style="color: #2c3e50; margin-bottom: 10px;">🚀 Currently Building:</h4>
+                <ul style="margin-left: 20px; color: #666;">
+                    <li>Advanced Power BI dashboard with multiple data sources</li>
+                    <li>SQL-based chargeback prevention analysis system</li>
+                    <li>Python data analysis project (learning in progress)</li>
+                </ul>
             </div>
         </section>
 
@@ -544,6 +727,12 @@
                 Open to exploring opportunities across various industries while continuing to build expertise in modern data tools and methodologies.
             </p>
         </section>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal" onclick="closeImageModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
     </div>
 
     <footer>
